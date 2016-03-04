@@ -1,3 +1,3 @@
-var VozLiving = require("content/runtime");
-
-require("module/AdsRemove.js")
+require('babel-runtime/core-js/promise').default = require('bluebird');
+require("content/runtime");
+require('./main');

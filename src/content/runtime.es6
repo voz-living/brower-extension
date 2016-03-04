@@ -1,4 +1,4 @@
-import VozLiving from "content/VozLiving"
+import VozLiving from "content/voz-living"
 
 var _ = require("lodash");
 
