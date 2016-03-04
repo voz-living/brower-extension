@@ -1,3 +1,8 @@
 #!/bin/sh
 
-webpack --progress --colors --display-modules
+if [ "$1" == "-p" ]
+then
+    webpack --progress --colors --display-modules -p
+else
+    webpack --devtool inlinesourcemap --output-pathinfo --progress --colors --display-modules
+fi
