@@ -4,7 +4,7 @@ var fs = require("fs");
 var webpack = require('webpack');
 
 module.exports = {
-	devtool: 'source-map',
+	devtool: 'inline-source-map',
     entry: {
 		'content-script': './src/content/script.js',
 		'background': './src/background/background.js',
