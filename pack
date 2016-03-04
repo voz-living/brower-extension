@@ -2,7 +2,9 @@
 
 if [ "$1" == "-p" ]
 then
+    echo "Production build"
     webpack --progress --colors --display-modules -p
 else
     webpack --devtool inlinesourcemap --output-pathinfo --progress --colors --display-modules
+    echo "\n Note: Add -p for production build"
 fi
