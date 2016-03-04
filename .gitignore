@@ -1,0 +1,8 @@
+
+node_modules/
+
+*.map
+
+build/background.js
+
+build/content-script.js
