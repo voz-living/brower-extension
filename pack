@@ -1,5 +1,11 @@
 #!/bin/sh
 
+mkdir -p build/view
+cp src/browser-action/view/index.html build/view/browser-action.html
+echo "Coppied build/view/browser-action.html"
+cp src/option/view/index.html build/view/options.html
+echo "Coppied build/view/options.html"
+
 if [ "$1" == "-p" ]
 then
     echo "Production build"

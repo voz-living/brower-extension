@@ -23,7 +23,7 @@
             "38": "assert/icon/64.png"
         },
         "default_title": "Voz Living",
-        "default_popup": "build/view/browser_action.html"
+        "default_popup": "build/view/browser-action.html"
     },
     "permissions": [
         "http://vozforums.com/*",
