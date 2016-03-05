@@ -10,4 +10,8 @@ export default class BaseRuntime extends BaseEvent {
         var module = new Module();
         this.modules.push(module);
     }
+
+    loadModules(){
+        _.forEach(arguments, (module) => this.loadModule(module));
+    }
 }
