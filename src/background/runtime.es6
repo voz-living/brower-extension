@@ -6,6 +6,8 @@ export default class BackgroundRuntime extends BaseRuntime {
     }
 
     start(){
-        
+        this.modules.forEach((module) => {
+            module.start();
+        })
     }
 }

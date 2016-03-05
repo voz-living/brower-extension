@@ -5,11 +5,17 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
     constructor(){
         super();
         this.storage = new Storage("local", {prefix: "noti5_"});
-        this.authStorage = new Storage("local", {prefix: "auth_"});
+        this.authStorage = new Storage("sync", {prefix: "auth_"});
     }
 
-    start(){
+    async start(){
         super.start();
+
+        // test storage
+        var _t = await this.storage.set({a: 5, b: 6});
+        var mytest = await this.storage.get({a: 1, b: 2, c: 3});
+
+        console.log(mytest);
 
         var timeoutId = null;
         var timeout = 10000;
