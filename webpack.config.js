@@ -24,12 +24,13 @@ module.exports = {
                 test: /\.svg$/,
                 loader: 'url-loader?mimetype=image/svg+xml'
             }, {
-                test: /\.es6$/,
+                test: /\.(es6|hyper)$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel',
                 query: {
                     presets: ['es2015'],
-                    plugins: ['transform-runtime']
+                    plugins: ['transform-runtime'],
+                    plugins: ['transform-async-to-generator']
                 }
             }, {
                 test: /\.json$/,
@@ -51,7 +52,7 @@ module.exports = {
 				.filter(function(f){return fs.statSync(path.join("./node_modules", f)).isDirectory()})
 				.map(function(f){return path.resolve(path.join("./node_modules", f, "node_modules"))})),*/
         alias: {},
-        extensions: ['.es6', '', '.js', '.json']
+        extensions: ['.es6', '', '.js', '.json', '.hyper']
     },
     resolveLoader: {
         root: [
