@@ -8,6 +8,7 @@ export default class Storage{
         }else {
             throw new Error(`Doest not support storage type ${type}`)
         }
+
     }
 
     set(obj, val=null){
@@ -17,13 +18,14 @@ export default class Storage{
             setObj = {};
             setObj[prefix+obj] = val;
         }
-        if(this.prefix != ""){
-            _.forEach(obj, (value, key) => {
-                setObj[prefix + key] = value;
-            })
-        }
+
+        var sObj = {}
+        _.forEach(setObj, (value, key) => {
+            sObj[prefix + key] = value;
+        })
+
         return new Promise((resolve, reject) => {
-            this.storage.set(setObj, () => resolve(true))
+            this.storage.set(sObj, () => resolve(true))
         })
     }
 
@@ -60,7 +62,9 @@ export default class Storage{
                     val=ret[prefix+first]
                 }else{
                     val = {};
-                    _.forEach(obj, (item, key) => val[key.replace(prefix, "")] = item);
+                    _.forEach(ret, (item, key) => {
+                        val[key.replace(prefix, "")] = item
+                    });
                 }
                 resolve(val);
             })

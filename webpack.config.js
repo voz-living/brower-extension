@@ -61,7 +61,7 @@ module.exports = {
         alias: {}
     },
     plugins: [
-        new webpack.optimize.DedupePlugin(),
+        // new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurenceOrderPlugin(true),
         new webpack.ProvidePlugin({
             $: "jquery",

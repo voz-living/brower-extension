@@ -8,11 +8,11 @@ export default class BaseRuntime extends BaseEvent {
         this.communicationHandler = {}
 
         chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-            var sender = "extension"
+            var from = "content_script"
             if(_.isUndefined(sender.tab)){
-                sender = "content_script"
+                from = "extension"
             }
-            console.info(sender == "content_script" ? "from a content script:" + sender.tab.url : "from the extension");
+            console.info(from == "content_script" ? "from a content script:" + sender.tab.url : "from the extension");
             var type = request.type;
             if(_.isUndefined(type) || _.isUndefined(request.message)){
                 sendResponse({
@@ -31,8 +31,8 @@ export default class BaseRuntime extends BaseEvent {
             }
         });
 
-        this.registerCommunicationHandler("info", this._communicationInfoHandler);
-        this.registerCommunicationHandler("function", this._communicationFunctionHandler);
+        this.registerCommunicationHandler("info", this._communicationInfoHandler.bind(this));
+        this.registerCommunicationHandler("function", this._communicationFunctionHandler.bind(this));
     }
 
     loadModule(Module){

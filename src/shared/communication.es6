@@ -1,8 +1,9 @@
 export function sendMessageToClient(message, callback){
-    chrome.tabs.query({currentWindow: true}, function(tabs) {
-        for(var i=0;i<tabs.length;i++){
-            chrome.tabs.sendMessage(tabs[i].id, message, callback);
-        }
+    console.log("sendMessageToClient:", message)
+    chrome.tabs.query({}, function(tabs) {
+        tabs.filter(({url}) => /vozforums\.com/.test(url)).forEach(({id}) =>{
+            chrome.tabs.sendMessage(id, message, callback);
+        });
     });
 }
 
@@ -29,7 +30,5 @@ export function sendFunctionCall(message, callback){
     getCommunicator()({
         type: "function",
         message: message
-    });
+    }, callback);
 }
-
-export
