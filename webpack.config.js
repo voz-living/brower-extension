@@ -65,7 +65,9 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
-            "window.jQuery": "jquery"
+            "window.jQuery": "jquery",
+			_: "lodash",
+			lodash: "lodash"
         })
         // new webpack.optimize.UglifyJsPlugin({
         // 	compress: {
