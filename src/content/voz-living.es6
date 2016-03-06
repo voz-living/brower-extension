@@ -6,6 +6,7 @@ export default class VozLiving extends BaseRuntime {
         super();
 
         $( document ).ready(() => {
+            require("font-awesome/css/font-awesome.min.css");
             this.emit("DOMReady", new Date());
             this._getAuthenticationInformation();
         });

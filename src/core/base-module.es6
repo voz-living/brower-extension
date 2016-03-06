@@ -4,8 +4,11 @@ var VozLiving = require("content/runtime");
 export default class BaseModule extends BaseEvent {
     constructor(){
         super();
-
         VozLiving.once("DOMReady", this.onDOMReady.bind(this));
+    }
+
+    get name(){
+        return null
     }
 
     onDOMReady(){

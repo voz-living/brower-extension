@@ -4,6 +4,7 @@ export default class BaseRuntime extends BaseEvent {
     constructor(){
         super();
         this.modules = [];
+        this.moduleAlias = {};
         this.functions = {};
         this.communicationHandler = {}
 
@@ -37,7 +38,10 @@ export default class BaseRuntime extends BaseEvent {
 
     loadModule(Module){
         var module = new Module();
+        var name = module.name;
+        if(name == null) name = module.constructor.name;
         this.modules.push(module);
+        this.moduleAlias[name] = module;
     }
 
     registerCommunicationHandler(name, fn){
