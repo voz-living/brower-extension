@@ -1,11 +1,15 @@
 .preview-wapper{
 	position: relative;
-    padding-top: 25px;
+
+    .preview-control{
+    	overflow: hidden;
+    }
+
+    .float-right{
+    	float: right;
+    }
 	
-	.btn-open-preview{
-		position: absolute;
-		right: 0;
-		top: 0;
+	.btn-blue{
 		height: 10px;
 		padding: 5px 10px;
 		font-size: 10px;
@@ -16,6 +20,7 @@
 		background-color: #23497C;
 		text-decoration: none;
 		color: #fff;
+		position: relative;
 		
 		.content {
 			transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
@@ -55,7 +60,7 @@
 		}
 	}
 
-	.review-content{
+	.preview-content{
 		padding: 25px 0;
 		border-top: 1px solid #000;
 		border-bottom: 1px solid #000;
@@ -63,5 +68,6 @@
 		overflow-y: scroll;
 		overflow-x: scroll;
 		margin: 3px 0;
+		position: relative;
 	}
 }

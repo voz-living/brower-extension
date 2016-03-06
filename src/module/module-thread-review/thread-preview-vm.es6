@@ -22,21 +22,43 @@ export default class Thread{
 			el: this.mountElement,
 			template: templatePreview,
 			data: {
-				content: "",
-				loading: false,
+				showContent: 'first',
+				contentFirst: null,
+				contentLast: null,
+				loadingFirst: false,
+				loadingLast: false,
 				show: false
 			},
 			methods: {
-				togglePreview: this.togglePreview.bind(this)
+				togglePreviewFirst: this.togglePreviewFirst.bind(this),
+				togglePreviewLast: this.togglePreviewLast.bind(this),
+				openNewTab: this.openNewTab.bind(this)
 			},
 			computed: {
 				textOpenPreview: function(){
-					if(this.loading) return 'Đang tải';
-					if(this.show) return 'Đóng';
-					return 'Xem Trước';
+					if(this.showContent == 'first'){
+						if(this.loadingFirst) return 'Đang tải';
+						if(this.show) return 'Đóng';
+					}
+					return 'Xem trước thớt';
+				},
+				textOpenPreviewLast: function(){
+					if(this.showContent == 'last'){
+						if(this.loadingLast) return 'Đang tải';
+						if(this.show) return 'Đóng';
+					}
+					return 'Xem Post cuối';
+				},
+				content: function(){
+					if(this.showContent == 'last') return this.contentLast;
+					return this.contentFirst
 				}
 			}
 		});
+	}
+
+	openNewTab(){
+		window.open(this.url ,'_blank');
 	}
 
 	appendMount(){
@@ -48,18 +70,33 @@ export default class Thread{
 		return $(response).find(`[id^='post_message']:${position}`).html();
 	}
 
-	togglePreview(){
-		if(!this.isPreviewLoaded){
-			var self = this;
-
-			this.vue.loading = true;
-			http.get(this.url).then((response) => {
-				self.vue.content = self.getPost(response);
-				self.vue.loading = false;
-				this.isPreviewLoaded = true;
-			});
+	async togglePreviewFirst(){
+		if(!this.vue.contentFirst){
+			this.vue.loadingFirst = true;
+			this.vue.contentFirst = await this.getPagePreview();
+			this.vue.loadingFirst = false;
 		}
-		this.vue.show = !this.vue.show;
+		if(this.vue.showContent == 'first' || !this.vue.show){
+			this.vue.show = !this.vue.show
+		}
+		this.vue.showContent = 'first';
+	}
+
+	async togglePreviewLast(){
+		if(!this.vue.contentLast){
+			this.vue.loadingLast = true;
+			this.vue.contentLast = await this.getPagePreview(this.getPageUrl(this.pageNum), 'last');
+			this.vue.loadingLast = false;
+		}
+		if(this.vue.showContent == 'last' || !this.vue.show){
+			this.vue.show = !this.vue.show
+		}
+		this.vue.showContent = 'last';
+	}
+
+	async getPagePreview(url=this.url, position='first'){
+		var response = await http.get(url);
+		return this.getPost(response, position);
 	}
 
 	getPageUrl(page=1){
