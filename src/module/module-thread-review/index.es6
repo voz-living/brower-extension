@@ -10,13 +10,22 @@ export default class ModuleThreadReview extends BaseModule{
         this.vm = [];
     }
 
-    mountPreviews(){        
+    mountPreviews(){
+        var self = this;
+
         if(this.threads.length > 0)
             _.each(this.threads, (thread) => {
                 thread.$element.append(`<div class='mount-${thread.id}'></div>`);
                 var mount = thread.$element.find(`.mount-${thread.id}`);
                 var threadPreview = new ThreadPreview({
-                    data: { id: thread.id, lastPage: thread.pageNum }
+                    data: { id: thread.id, lastPage: thread.pageNum },
+                    events: {
+                        closeOtherPreview: function(){
+                            _.each(self.vm, (cvm) => {
+                                if(cvm._uid != this._uid && cvm.show) cvm.close();
+                            });
+                        }
+                    }
                 })
                 threadPreview.$mount(mount[0]);
                 this.vm.push(threadPreview);

@@ -26,17 +26,19 @@ var ThreadPreview = Vue.extend({
 				this.show = !this.show
 			}
 			this.showContent = 'first';
+			this.$emit('closeOtherPreview');
     	},
 		togglePreviewLast: async function(){
 			if(!this.contentLast){
-			this.loadingLast = true;
-			this.contentLast = await this.getPagePreview(this.getPageUrl(this.pageNum), 'last');
-			this.loadingLast = false;
-		}
-		if(this.showContent == 'last' || !this.show){
-			this.show = !this.show
-		}
-		this.showContent = 'last';
+				this.loadingLast = true;
+				this.contentLast = await this.getPagePreview(this.getPageUrl(this.pageNum), 'last');
+				this.loadingLast = false;
+			}
+			if(this.showContent == 'last' || !this.show){
+				this.show = !this.show
+			}
+			this.showContent = 'last';
+			this.$emit('closeOtherPreview');
 		},
 		openNewTab: function(){
 			window.open(this.url ,'_blank');
@@ -50,6 +52,9 @@ var ThreadPreview = Vue.extend({
 		},
 		getPost: function(response, position='first'){
 			return $(response).find(`[id^='post_message']:${position}`).html();
+		},
+		close: function(){
+			this.show = false;
 		}
     },
 	computed: {
@@ -77,7 +82,7 @@ var ThreadPreview = Vue.extend({
 	},
 	attached: function(){
         require("./style.less");
-    },
+    }
 });
 
 export default ThreadPreview
