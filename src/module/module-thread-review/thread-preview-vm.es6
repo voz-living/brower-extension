@@ -47,7 +47,7 @@ export default class Thread{
 						if(this.loadingLast) return 'Đang tải';
 						if(this.show) return 'Đóng';
 					}
-					return 'Xem Post cuối';
+					return 'Xem post cuối';
 				},
 				content: function(){
 					if(this.showContent == 'last') return this.contentLast;
