@@ -1,5 +1,7 @@
 import BaseModule from "core/base-module"
 import ComponentBarItem from "./component-bar-item"
+import ComponentQuoteNoti5List from "module/quote-noti5/quote-noti5-list";
+
 var VozLiving = require("content/runtime");
 
 export default class ModuleTopBar extends BaseModule{
@@ -15,7 +17,8 @@ export default class ModuleTopBar extends BaseModule{
 
 			},
             components: {
-                "bar-item": ComponentBarItem
+                "bar-item": ComponentBarItem,
+                "quote-noti5-list": ComponentQuoteNoti5List
             }
 		});
     }

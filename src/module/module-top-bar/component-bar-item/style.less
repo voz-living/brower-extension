@@ -33,9 +33,21 @@
         }
     }
     .item_icon_wrapper{
-        width: 100%;
-        height: 100%;
+        width: 40px;
+        height: 40px;
         display: block;
+        position: relative;
+
+        .item_badge {
+            position: absolute;
+            right: 6px;
+            top: 2px;
+            display: block;
+            border-radius: 4px;
+            background: #666;
+            font-size: 10px;
+            padding: 0 3px;
+        }
         a {
             transition: all 0.3s;
             display: block;
