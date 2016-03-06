@@ -1,5 +1,5 @@
 import BaseModule from "core/base-module"
-import Thread from "model/thread/"
+import Thread from "./thread-preview-vm"
 
 export default class ModuleThreadReview extends BaseModule{
     constructor(){
@@ -25,7 +25,10 @@ export default class ModuleThreadReview extends BaseModule{
             var lastPage = 1;
             var title = "";
 
-            if(lastPageHref) lastPage = lastPageHref.match(/&page=(\d+)/)[1];
+            if(lastPageHref) {
+                var match = lastPageHref.match(/&page=(\d+)/);
+                if(match) lastPage = match[1];
+            }
 
             return new Thread({ id, pageNum: parseInt(lastPage, 10), title, $element: $tdTitle });
         });
@@ -33,6 +36,7 @@ export default class ModuleThreadReview extends BaseModule{
 
     onDOMReady(){
         super.onDOMReady();
+        require('./style.less');
         this.getThreads();
         this.mountPreviews();
     }

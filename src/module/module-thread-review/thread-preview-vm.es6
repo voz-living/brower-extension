@@ -1,5 +1,5 @@
 import http from "service/http"
-import templateReview from  "./template-review"
+import templatePreview from  "./thread-preview-template.html"
 
 export default class Thread{
 	constructor({ id=null, pageNum=1, title="", $element=null, url="" }){
@@ -20,7 +20,7 @@ export default class Thread{
 
 		this.vue = new Vue({
 			el: this.mountElement,
-			template: templateReview,
+			template: templatePreview,
 			data: {
 				content: "",
 				loading: false,
@@ -28,6 +28,13 @@ export default class Thread{
 			},
 			methods: {
 				togglePreview: this.togglePreview.bind(this)
+			},
+			computed: {
+				textOpenPreview: function(){
+					if(this.loading) return 'Đang tải';
+					if(this.show) return 'Đóng';
+					return 'Xem Trước';
+				}
 			}
 		});
 	}

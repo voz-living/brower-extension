@@ -1,0 +1,67 @@
+.preview-wapper{
+	position: relative;
+    padding-top: 25px;
+	
+	.btn-open-preview{
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 10px;
+		padding: 5px 10px;
+		font-size: 10px;
+		vertical-align: center;
+		cursor: pointer;
+		border-radius: 5px;
+		border: 1px solid #fff;
+		background-color: #23497C;
+		text-decoration: none;
+		color: #fff;
+		
+		.content {
+			transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+		}
+
+		.loading {
+			position: absolute;
+			left: 10px;
+			top: 6px;
+			padding-right: 5px;
+			visibility: hidden;
+			opacity: 0;
+			transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+			height: 100%;
+		}
+
+		svg {
+			width: 10px;
+			height: 10px;
+		}
+
+		&.active {
+				cursor: default; 
+
+			.loading {
+				visibility: visible;
+				opacity: 1; 
+			}
+
+			.content {
+				padding-left: 35px;
+			}
+		}
+		
+		&:hover{
+			color: #fff;
+		}
+	}
+
+	.review-content{
+		padding: 25px 0;
+		border-top: 1px solid #000;
+		border-bottom: 1px solid #000;
+		max-height: 200px;
+		overflow-y: scroll;
+		overflow-x: scroll;
+		margin: 3px 0;
+	}
+}

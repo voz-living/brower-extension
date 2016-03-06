@@ -1,8 +1,0 @@
-var templateReview = `<div v-on:click="togglePreview">
-	<div class="review-content" v-show="show">
-		{{{ content }}}
-	</div>
-	<span v-show="!show">Open Review</span>
-</div>`;
-
-export default templateReview;
