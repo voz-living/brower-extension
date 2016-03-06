@@ -1,5 +1,5 @@
 import BaseModule from "core/base-module"
-import Thread from "./thread-preview-vm"
+import ThreadPreview from "./component-thread-preview"
 
 export default class ModuleThreadReview extends BaseModule{
     constructor(){
@@ -7,11 +7,20 @@ export default class ModuleThreadReview extends BaseModule{
 
         this.threads = [];
         this.mounted = false;
+        this.vm = [];
     }
 
-    mountPreviews(){
+    mountPreviews(){        
         if(this.threads.length > 0)
-            _.each(this.threads, (thread) => thread.mountThreadPreview());
+            _.each(this.threads, (thread) => {
+                thread.$element.append(`<div class='mount-${thread.id}'></div>`);
+                var mount = thread.$element.find(`.mount-${thread.id}`);
+                var threadPreview = new ThreadPreview({
+                    data: { id: thread.id, lastPage: thread.pageNum }
+                })
+                threadPreview.$mount(mount[0]);
+                this.vm.push(threadPreview);
+            });
     }
 
     getThreads(){
@@ -23,20 +32,18 @@ export default class ModuleThreadReview extends BaseModule{
             var pages = $tdTitle.find(">div span > a");
             var lastPageHref = pages.eq(pages.length - 1).attr("href");
             var lastPage = 1;
-            var title = "";
 
             if(lastPageHref) {
                 var match = lastPageHref.match(/&page=(\d+)/);
                 if(match) lastPage = match[1];
             }
 
-            return new Thread({ id, pageNum: parseInt(lastPage, 10), title, $element: $tdTitle });
+            return { id, pageNum: parseInt(lastPage, 10), $element: $tdTitle };
         });
     }
 
     onDOMReady(){
         super.onDOMReady();
-        require('./style.less');
         this.getThreads();
         this.mountPreviews();
     }
