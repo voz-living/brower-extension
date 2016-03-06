@@ -18,6 +18,9 @@ module.exports = {
                 test: /\.less$/,
                 loaders: ["style-loader", "css-loader", "less-loader"]
             }, {
+                test: /\.css$/,
+                loaders: ["style-loader", "css-loader"]
+            }, {
                 test: /\.html$/,
                 loader: 'html'
             }, {
@@ -35,9 +38,22 @@ module.exports = {
             }, {
                 test: /\.json$/,
                 loader: 'json-loader'
-            },
-
-            {
+            },{
+                test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/font-woff"
+            }, {
+                test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/font-woff"
+            }, {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/octet-stream"
+            }, {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file"
+            }, {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=image/svg+xml"
+            }, {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
                 loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
             }
@@ -61,14 +77,15 @@ module.exports = {
         alias: {}
     },
     plugins: [
-        new webpack.optimize.DedupePlugin(),
+        // new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurenceOrderPlugin(true),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery",
 			_: "lodash",
-			lodash: "lodash"
+			lodash: "lodash",
+            Vue: "vue"
         })
         // new webpack.optimize.UglifyJsPlugin({
         // 	compress: {

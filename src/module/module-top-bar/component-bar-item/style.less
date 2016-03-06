@@ -1,0 +1,65 @@
+.voz_living_top_bar_item{
+    width:40px;
+    height: 40px;
+    box-sizing: border-box;
+    float: left;
+    border-top: 2px solid #808080;
+    border-right: 2px solid #000;
+    border-bottom: 1px solid #333;
+    box-shadow: inset 0 0 2px #555;
+    background: #333;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#111));
+    background-image: -webkit-linear-gradient(top, #333, #111);
+    background-image:    -moz-linear-gradient(top, #333, #111);
+    background-image:     -ms-linear-gradient(top, #333, #111);
+    background-image:      -o-linear-gradient(top, #333, #111);
+    transition: all 0.3s;
+
+    &:hover{
+        background: #00AEE9;
+        box-sizing: border-box;
+        border-top: 2px solid #8bd1e8 !important;
+        border-bottom: 2px solid #002633;
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#00b6f2), to(#007399));
+        background-image: -webkit-linear-gradient(top, #00b6f2, #007399) !important;
+        background-image:    -moz-linear-gradient(top, #00b6f2, #007399) !important;
+        background-image:     -ms-linear-gradient(top, #00b6f2, #007399) !important;
+        background-image:      -o-linear-gradient(top, #00b6f2, #007399) !important;
+
+        .item_icon_wrapper{
+            a {
+                color: #333;
+            }
+        }
+    }
+    .item_icon_wrapper{
+        width: 40px;
+        height: 40px;
+        display: block;
+        position: relative;
+
+        .item_badge {
+            position: absolute;
+            right: 6px;
+            top: 2px;
+            display: block;
+            border-radius: 4px;
+            background: #666;
+            font-size: 10px;
+            padding: 0 3px;
+        }
+        a {
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: white;
+            box-sizing: border-box;
+            font-size: 25px;
+            line-height: 40px;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 7px;
+        }
+    }
+}

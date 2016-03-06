@@ -30,7 +30,7 @@
         "https://vozforums.com/*",
         "http://www.vozforums.com/*",
         "https://www.vozforums.com/*",
-        "notifications", "storage"
+        "notifications", "storage", "tabs"
     ],
     "content_scripts": [{
         "all_frames": false,
@@ -45,7 +45,5 @@
         ],
         "run_at": "document_start"
     }],
-    "web_accessible_resources": [
-        "build/content-script.js.map"
-    ]
+    "web_accessible_resources": []
 }
