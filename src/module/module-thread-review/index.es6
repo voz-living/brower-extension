@@ -26,7 +26,7 @@ export default class ModuleThreadReview extends BaseModule{
                             });
                         }
                     }
-                })
+                });
                 threadPreview.$mount(mount[0]);
                 this.vm.push(threadPreview);
             });
