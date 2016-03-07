@@ -1,0 +1,76 @@
+.preview-wapper{
+	position: relative;
+
+    .preview-control{
+    	overflow: hidden;
+    }
+
+    .float-right{
+    	float: right;
+    }
+	
+	.btn-blue{
+		height: 10px;
+		padding: 5px 10px;
+		font-size: 10px;
+		vertical-align: center;
+		cursor: pointer;
+		border-radius: 5px;
+		border: 1px solid #fff;
+		background-color: #23497C;
+		text-decoration: none;
+		color: #fff;
+		position: relative;
+		
+		.content {
+			transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+		}
+
+		.loading {
+			position: absolute;
+			left: 10px;
+			top: 6px;
+			padding-right: 5px;
+			visibility: hidden;
+			opacity: 0;
+			transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+			height: 100%;
+		}
+
+		svg {
+			width: 10px;
+			height: 10px;
+		}
+
+		&.active {
+				cursor: default; 
+
+			.loading {
+				visibility: visible;
+				opacity: 1; 
+			}
+
+			.content {
+				padding-left: 35px;
+			}
+		}
+		
+		&:hover{
+			color: #fff;
+		}
+	}
+
+	.preview-content{
+		padding: 25px 0;
+		border-top: 1px solid #000;
+		border-bottom: 1px solid #000;
+		max-height: 300px;
+		overflow-y: scroll;
+		overflow-x: scroll;
+		margin: 3px 0;
+		position: relative;
+		img{
+			max-width: 500px;
+		}
+	}
+}
