@@ -1,3 +1,23 @@
 <div class="voz_living_quote_noti5_list">
-    Quote List
+    <ul>
+        <li v-for="q in quotes">
+            <div class='noti5-quote-item data-item'>
+                <strong>
+                    <a href="showthread.php?t={{q.thread.id}}">
+                        <i class='icon-th-list icon-white'></i>
+                        <span>{{q.thread.title}}</span>
+                    </a>
+                </strong>
+                :
+                <span style='font-style:italic;text-decoration:underline'>
+                    <a href="showthread.php?p={{q.post.id}}#post{{q.post.id}}">
+                        {{q.post.content}}
+                    </a>
+                </span>
+                <span class='label label-primary' style=''>
+                    ({{q.author.username}})
+                </span>
+            </div>
+        </li>
+    </ul>
 </div>
