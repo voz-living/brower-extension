@@ -1,5 +1,5 @@
 var ComponentBarItem = Vue.extend({
-    props: ['faIcon'],
+    props: ['faIcon','linkTarget'],
     data: () => {
         return {
             badgeNum: 1

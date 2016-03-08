@@ -13,6 +13,6 @@ export default class ModuleQuoteNoti5 extends BaseModule{
     }
 
     _updateQuotes(quotes){
-        console.log("Quotes got updated:", quotes)
+        VozLiving.moduleAlias.topBar.vm.$refs.quotenoti5list.updateQuotes(quotes);
     }
 }
