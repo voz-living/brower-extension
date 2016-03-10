@@ -1,5 +1,5 @@
 <div class="voz_living_quote_noti5_list">
-    <ul>
+    <ul v-if="quotes.length > 0">
         <li v-for="q in quotes">
             <div class='noti5-quote-item data-item'>
                 <strong>
@@ -20,4 +20,7 @@
             </div>
         </li>
     </ul>
+    <div v-else>
+        <h2>There is no quotes yet or being loaded</h2>
+    </div>
 </div>

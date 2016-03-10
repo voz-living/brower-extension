@@ -1,17 +1,18 @@
 import BaseBackground from "core/base-background"
-import Storage from "shared/storage"
+import Storage, {authStorage} from "shared/storage"
 import {sendInfo, sendFunctionCall} from "shared/communication"
 
 export default class BGModuleQuoteNoti5 extends BaseBackground{
     constructor(){
         super();
         this.storage = new Storage("local", {prefix: "noti5_"});
-        this.authStorage = new Storage("sync", {prefix: "auth_"});
 
         this.timeoutId = null;
         this.timeout = 10000;
 
         runtime.registerFunction("emitQuoteListToClient", this._emitQuoteListToClient.bind(this));
+        runtime.registerFunction("emitUnseenQuotesCount", this._emitUnseenQuotesCount.bind(this));
+        runtime.registerFunction("updateSeenQuotes", this._updateSeenQuotes.bind(this));
     }
 
     async start(){
@@ -39,18 +40,35 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
         return quotes;
     }
 
-    async _updateQuotes(quotes) {
+    async _updateSeenQuotes(quotes) {
         var stQuotes = await this.storage.get("quotes");
         for (var i = 0; i < quotes.length; i++) {
             for (var j = 0; j < stQuotes.length; j++) {
                 if (stQuotes[j].post.id == quotes[i].post.id) {
-                    stQuotes[j] = $.extend(true, {}, stQuotes[j], quotes[i]);
+                    // stQuotes[j] = _.assign(stQuotes[j], quotes[i]);
+                    stQuotes[j].hasSeen = true;
                     break;
                 }
             }
         }
+
         this._saveQuotes(stQuotes);
+        this._pushUnseenCount();
         return stQuotes.length;
+    }
+
+    async _emitUnseenQuotesCount(){
+        this._pushUnseenCount();
+        return Pronise.resolve(true)
+    }
+
+    async _pushUnseenCount(){
+        var quotes = await this.storage.get("quotes");
+        var count = quotes.filter((q) => q.hasSeen == false).length;
+        sendFunctionCall({
+            function: "updateUnseenQuotesCount",
+            params: count
+        });
     }
 
     async _emitQuoteListToClient(){
@@ -167,7 +185,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
     }
 
     async _run(){
-        var {username, securitytoken} = await this.authStorage.get({
+        var {username, securitytoken} = await authStorage.get({
             username: null,
             securitytoken: null
         });

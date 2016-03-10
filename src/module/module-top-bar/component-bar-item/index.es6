@@ -2,7 +2,7 @@ var ComponentBarItem = Vue.extend({
     props: ['faIcon','linkTarget'],
     data: () => {
         return {
-            badgeNum: 1
+            badgeNum: 0
         }
     },
     template: require("./template.html"),
