@@ -11,6 +11,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
         this.timeoutId = null;
         this.timeout = 10000;
 
+        runtime.registerFunction("emitQuoteListToClient", this._emitQuoteListToClient.bind(this));
     }
 
     async start(){
@@ -22,7 +23,6 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
 
         console.log(mytest);
 
-
         this._run();
     }
 
@@ -33,19 +33,14 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
     async _getQuotes(){
         var quotes = await this.storage.get("quotes")
 
-        if (quotes == null) quotes = "[]";
+        if (quotes == null) quotes = [];
         quotes = quotes;
 
-        var data = {
-            quotes: quotes,
-            length: quotes.length
-        }
-
-        return data;
+        return quotes;
     }
 
-    _updateQuotes(quotes) {
-        var stQuotes = this.storage.get("quotes");
+    async _updateQuotes(quotes) {
+        var stQuotes = await this.storage.get("quotes");
         for (var i = 0; i < quotes.length; i++) {
             for (var j = 0; j < stQuotes.length; j++) {
                 if (stQuotes[j].post.id == quotes[i].post.id) {
@@ -56,6 +51,16 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
         }
         this._saveQuotes(stQuotes);
         return stQuotes.length;
+    }
+
+    async _emitQuoteListToClient(){
+        var quotes = await this._getQuotes();
+        sendFunctionCall({
+            function: "updateQuotes",
+            params: quotes
+        });
+
+        return Promise.resolve(true)
     }
 
     async _checksave(data) {

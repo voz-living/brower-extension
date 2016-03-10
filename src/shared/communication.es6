@@ -20,6 +20,7 @@ function getCommunicator(){
 }
 
 export function sendInfo(message, callback){
+    console.log("Send Info:", message);
     getCommunicator()({
         type: "info",
         message: message
@@ -27,6 +28,7 @@ export function sendInfo(message, callback){
 }
 
 export function sendFunctionCall(message, callback){
+    console.log("Send Function:", message);
     getCommunicator()({
         type: "function",
         message: message

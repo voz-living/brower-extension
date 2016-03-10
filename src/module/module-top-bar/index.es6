@@ -8,6 +8,8 @@ export default class ModuleTopBar extends BaseModule{
     constructor(){
         super();
 
+        var self = this;
+
         this.vm = new Vue({
 			template: require("./template.html"),
 			data: {
@@ -22,14 +24,17 @@ export default class ModuleTopBar extends BaseModule{
                 "quote-noti5-list": ComponentQuoteNoti5List
             },
             attached: () => {
+
                 $(".voz_living_top_bar").on("click", ".voz_living_top_bar_item", function(){
                     var $this = $(this);
+                    var id = $this.attr("id");
                     if($this.hasClass("selected")){
                         $this.removeClass("selected")
                         $("#voz_living_backdrop").hide();
                     }else{
                         $(".voz_living_top_bar_item").removeClass("selected");
                         $this.addClass("selected");
+                        self.vm.$refs[id].$emit("selected");
                         $("#voz_living_backdrop").show();
                     }
                 })

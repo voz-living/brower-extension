@@ -16,7 +16,7 @@ export default class Storage{
         var prefix = this.prefix;
         if(val!=null){
             setObj = {};
-            setObj[prefix+obj] = val;
+            setObj[obj] = val;
         }
 
         var sObj = {}
