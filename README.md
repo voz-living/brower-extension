@@ -9,10 +9,10 @@ Browser extensions for voz living
 - [ ] Options Page
 - [ ] Monitor(Notify) followed threads
 - [ ] Link related features
-+ [ ]   Remove redirect
-+ [ ]   Link detection (then convert to link)
-+ [ ]   Embed Youtube Link
-+ [ ]   Embed Image Link
+- [ ] +   Remove redirect
+- [ ] +   Link detection (then convert to link)
+- [ ] +   Embed Youtube Link
+- [ ] +   Embed Image Link
 - [ ] Facebook Sharing (Post)
 - [ ] Add full emoticon into editor (both advanced and quick reply)
 - [ ] Quick post quotation
