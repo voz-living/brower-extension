@@ -13,12 +13,25 @@ export default class ModuleThreadReview extends BaseModule{
     mountPreviews(){
         var self = this;
 
-        if(this.threads.length > 0)
+        if(this.threads.length > 0){
+            $('<td class="thead" width="20"><span>Preview</span></td>').insertAfter($("#threadslist tbody tr td.thead").eq(1));
+
             _.each(this.threads, (thread) => {
                 thread.$element.append(`<div class='mount-${thread.id}'></div>`);
+                var tdButton = $(`<td class='mount-button-td mount-button-${thread.id}'>
+                        <div class='btn-preview'>
+                            <i class="fa fa-eye"></i>
+                        </div>
+                        <div class='btn-view-last-post'>
+                            <i class="fa fa-fast-forward"></i>
+                        </div>
+                        <div class='btn-open-new-tab'>
+                            <i class="fa fa-share"></i>
+                        </div>
+                    </td>`).insertAfter(thread.$element);
                 var mount = thread.$element.find(`.mount-${thread.id}`);
                 var threadPreview = new ThreadPreview({
-                    data: { id: thread.id, lastPage: thread.pageNum },
+                    data: { id: thread.id, pageNum: thread.pageNum, controlTd: tdButton },
                     events: {
                         closeOtherPreview: function(){
                             _.each(self.vm, (cvm) => {
@@ -27,9 +40,13 @@ export default class ModuleThreadReview extends BaseModule{
                         }
                     }
                 });
+                $('div.btn-preview', tdButton).on('click', threadPreview.viewFirstPost);
+                $('div.btn-open-new-tab', tdButton).on('click', threadPreview.openNewTab);
+                $('div.btn-view-last-post', tdButton).on('click', threadPreview.viewLastPost);
                 threadPreview.$mount(mount[0]);
                 this.vm.push(threadPreview);
             });
+        }
     }
 
     getThreads(){

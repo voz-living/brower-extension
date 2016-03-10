@@ -1,84 +1,132 @@
 import http from "service/http"
+import ButtonLoading from "../component-button-loading"
 
 var ThreadPreview = Vue.extend({
     data: function(){
     	return {
-	    	showContent: 'first',
-			contentFirst: null,
-			contentLast: null,
-			loadingFirst: false,
-			loadingLast: false,
 			show: false,
 			url: "",
 			id: null,
-			lastPage: 1
+			pageNum: 1,
+			currentPostIndex: null,
+			currentPageIndex: null,
+			currentHtmlViewPosts: null,
+			firstPageHtml: null,
+			lastPageHtml: null,
+			controlDisable: false,
+			controlTd: null
 	    }
+    },
+    components: {
+        "button-loading": ButtonLoading
     },
     template: require("./thread-preview.html"),
     methods: {
-    	togglePreviewFirst: async function(){
-    		if(!this.contentFirst){
-				this.loadingFirst = true;
-				this.contentFirst = await this.getPagePreview();
-				this.loadingFirst = false;
-			}
-			if(this.showContent == 'first' || !this.show){
-				this.show = !this.show
-			}
-			this.showContent = 'first';
+    	viewFirstPost: function(){
+    		if(this.show) return this.close();
+    		if(this.currentPageIndex != 0 
+    			|| this.currentHtmlViewPosts == null){
+    			this.currentPageIndex = 0;
+    			this.currentPostIndex = 0;
+    			this._getCurrentPost();
+    		}else{
+    			this.currentPostIndex = 0;
+    			this.open();
+    		}
 			this.$emit('closeOtherPreview');
     	},
-		togglePreviewLast: async function(){
-			if(!this.contentLast){
-				this.loadingLast = true;
-				this.contentLast = await this.getPagePreview(this.getPageUrl(this.pageNum), 'last');
-				this.loadingLast = false;
-			}
-			if(this.showContent == 'last' || !this.show){
-				this.show = !this.show
-			}
-			this.showContent = 'last';
-			this.$emit('closeOtherPreview');
-		},
+    	viewLastPost: function(){
+    		if(this.currentPageIndex != this.pageNum - 1){
+    			this.currentPageIndex = this.pageNum - 1;
+	    		this.currentPostIndex = 'last';
+	    		this._getCurrentPost();
+    		}else{
+    			this.currentPostIndex = 'last';
+    			this.open();
+    		}
+    	},
 		openNewTab: function(){
 			window.open(this.url ,'_blank');
 		},
-		getPagePreview: async function(url, position='first'){
-			var response = await http.get(url || this.url);
-			return this.getPost(response, position);
-		},
-		getPageUrl: function(page=1){
-			return `https://vozforums.com/showthread.php?t=${this.id}&page=${page}`;
-		},
-		getPost: function(response, position='first'){
-			return $(response).find(`[id^='post_message']:${position}`).html();
-		},
 		close: function(){
 			this.show = false;
+			this.controlTd.removeClass('active')
+		},
+		open: function(){
+			this.show = true;
+			this.controlTd.addClass('active')
+		},
+		nextPost: async function(){
+			var postNum = this.currentHtmlViewPosts.length;
+
+			if(this.currentPageIndex == this.pageNum - 1 
+				&& this.currentPostIndex == postNum - 1) return;
+			
+			if(this.currentPostIndex < postNum - 1){
+				this.currentPostIndex += 1;
+			}else if(this.currentPostIndex == postNum - 1){
+				this.currentPageIndex += 1;
+				this.currentPostIndex = 0;
+				await this._getCurrentPost();
+			}
+		},
+		prevPost: async function(){
+			if(this.currentPageIndex == 0
+				&& this.currentPostIndex == 0) return;
+			if(this.currentPostIndex > 0){
+				this.currentPostIndex -= 1;
+			}else if(this.currentPostIndex == 0){
+				this.currentPageIndex -= 1;
+				this.currentPostIndex = 'last';
+				await this._getCurrentPost();
+			}
+		},
+		_getCurrentPost: async function(){
+    		this.controlDisable = true;
+			await this._loadPost(this.currentPageIndex, this.currentPostIndex)
+			this.controlDisable = false;
+			this.open();	
+		},
+		_loadPost: async function(pageIndex, postIndex){
+    		var response = await this._getPageByIndex(pageIndex);
+			if(response == null) return;
+			
+			this.currentHtmlViewPosts = $(response).find(`[id^='post_message']`);
+			
+			if(postIndex == 'last'){
+				this.currentPostIndex = this.currentHtmlViewPosts.length - 1;
+			}else{
+				this.currentPostIndex = postIndex;
+			}
+    	},
+		_getPageUrl: function(page=1){
+			return `https://vozforums.com/showthread.php?t=${this.id}&page=${page}`;
+		},
+		_getPostByIndex: function(index){
+			if(typeof(this.currentHtmlViewPosts) == 'string'){
+				this.currentHtmlViewPosts = $(this.currentHtmlViewPosts).find(`[id^='post_message']`);
+			}
+			return this.currentHtmlViewPosts.eq(index).html();
+		},
+		_getPageByIndex: async function(index){
+			if(index < this.pageNum){
+				var response = await http.get(this._getPageUrl(index + 1));
+				return response;
+			}
+			return null;
 		}
     },
 	computed: {
-		textOpenPreview: function(){
-			if(this.showContent == 'first'){
-				if(this.loadingFirst) return 'Đang tải';
-				if(this.show) return 'Đóng';
-			}
-			return 'Xem trước thớt';
-		},
-		textOpenPreviewLast: function(){
-			if(this.showContent == 'last'){
-				if(this.loadingLast) return 'Đang tải';
-				if(this.show) return 'Đóng';
-			}
-			return 'Xem post cuối';
-		},
 		content: function(){
-			if(this.showContent == 'last') return this.contentLast;
-			return this.contentFirst
+			if(this.currentPageIndex != null 
+				&& this.currentHtmlViewPosts != null){
+				return this.currentHtmlViewPosts.eq(this.currentPostIndex).html();
+			}
+			return '';
 		}
 	},
 	created: function(){
-		this.url = this.getPageUrl();
+		this.url = this._getPageUrl();
 	},
 	attached: function(){
         require("./style.less");
