@@ -19,13 +19,13 @@ export default class ModuleThreadReview extends BaseModule{
             _.each(this.threads, (thread) => {
                 thread.$element.append(`<div class='mount-${thread.id}'></div>`);
                 var tdButton = $(`<td class='mount-button-td mount-button-${thread.id}'>
-                        <div class='btn-preview'>
+                        <div class='btn-preview' voz-living-tooltip='Preview'>
                             <i class="fa fa-eye"></i>
                         </div>
-                        <div class='btn-view-last-post'>
+                        <div class='btn-view-last-post' voz-living-tooltip='Last Post'>
                             <i class="fa fa-fast-forward"></i>
                         </div>
-                        <div class='btn-open-new-tab'>
+                        <div class='btn-open-new-tab' voz-living-tooltip='Open in new tab'>
                             <i class="fa fa-share"></i>
                         </div>
                     </td>`).insertAfter(thread.$element);

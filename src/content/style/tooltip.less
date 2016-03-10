@@ -6,29 +6,29 @@
 		background-color: #000000;
 		background-color: hsla(0, 0%, 20%, 0.9);
 		border-radius: 3px;
-		bottom: 100%;
+		bottom: 80%;
 		color: #ffffff;
-		content: attr(data-tooltip);
-		font-size: 14px;
+		content: attr(voz-living-tooltip);
+		font-size: 10px;
 		left: 50%;
 		line-height: 1.2;
 		margin-bottom: 5px;
-		margin-left: -80px;
+		margin-left: -50px;
 		opacity: 0;
-		padding: 7px;
+		padding: 4px;
 		pointer-events: none;
 		position: absolute;
 		text-align: center;
 		transition: all 0.3s;
 		visibility: hidden;
-		width: 160px;
+		width: 100px;
 	}
 	&:after {
 		border-left: 5px solid transparent;
 		border-right: 5px solid transparent;
 		border-top: 5px solid #000000;
 		border-top: 5px solid hsla(0, 0%, 20%, 0.9);
-		bottom: 100%;
+		bottom: 80%;
 		content: " ";
 		font-size: 0;
 		left: 50%;
@@ -43,14 +43,24 @@
 	}
 	&:hover {
 		&:before {
-			bottom: 150%;
+			bottom: 100%;
 			opacity: 1;
 			visibility: visible;
 		}
 		&:after {
-			bottom: 150%;
+			bottom: 100%;
 			opacity: 1;
 			visibility: visible;
 		}
 	}
+    &[tooltip-down]{
+        &:before, &:after{
+            bottom: 0;
+        }
+        &:hover{
+            &:before, &:after{
+                bottom: -10%;
+            }
+        }
+    }
 }
