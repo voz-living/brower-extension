@@ -10,7 +10,11 @@ var ComponentBarItem = Vue.extend({
         require("./style.less");
     },
     created: function(){
-
+        this.$on("selected", () => {
+            if(this.$children.length > 0){
+                this.$children[0].$emit("selected")
+            }
+        })
     }
 });
 

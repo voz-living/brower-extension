@@ -13,7 +13,7 @@ export default class BaseRuntime extends BaseEvent {
             if(_.isUndefined(sender.tab)){
                 from = "extension"
             }
-            console.info(from == "content_script" ? "from a content script:" + sender.tab.url : "from the extension");
+            console.info(`Receive ${request.type}`, request.message);
             var type = request.type;
             if(_.isUndefined(type) || _.isUndefined(request.message)){
                 sendResponse({
@@ -79,6 +79,7 @@ export default class BaseRuntime extends BaseEvent {
                     error: true,
                     message: `Error while executing function ${func}`
                 });
+                console.error(e);
             }
         }
     }

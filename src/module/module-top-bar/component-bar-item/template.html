@@ -1,9 +1,9 @@
-<div class="voz_living_top_bar_item">
+<div class="voz_living_top_bar_item" id="{{linkTarget}}">
     <div class="item_icon_wrapper">
         <div class="item_badge">{{badgeNum}}</div>
         <a href="#{{linkTarget}}">
             <i class="fa fa-{{faIcon}}"></i>
         </a>
     </div>
-    <slot name="bar-content"></slot>
+    <slot name="bar-content" v-ref:bar_content></slot>
 </div>
