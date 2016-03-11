@@ -1,3 +1,20 @@
+import BaseModule from "core/base-module"
+
+export default class ModuleLinkProcess extends BaseModule{
+    constructor(){
+        super();
+    }
+
+    onDOMReady(){
+        super.onDOMReady();
+
+        if(window.__VOZLIVING && 
+            window.__VOZLIVING.isThreadPage){
+            proccessLink($('body'));
+        }
+    }
+}
+
 export function proccessLink($html, isThreadContentOnly=false){
 	replaceLinks($html);
 	removeRedirect($html);
