@@ -41,7 +41,7 @@ var ThreadPreview = Vue.extend({
 	    		this.currentPostIndex = 'last';
 	    		this._getCurrentPost();
     		}else{
-    			this.currentPostIndex = 'last';
+    			this.currentPostIndex = this.currentHtmlViewPosts.length - 1;
     			this.open();
     		}
     	},
