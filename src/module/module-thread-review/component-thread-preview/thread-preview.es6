@@ -1,5 +1,6 @@
 import http from "service/http"
 import ButtonLoading from "../component-button-loading"
+import {proccessLink} from "../../module-link-process"
 
 var ThreadPreview = Vue.extend({
     data: function(){
@@ -120,7 +121,11 @@ var ThreadPreview = Vue.extend({
 		content: function(){
 			if(this.currentPageIndex != null 
 				&& this.currentHtmlViewPosts != null){
-				return this.currentHtmlViewPosts.eq(this.currentPostIndex).html();
+				var $html = this.currentHtmlViewPosts.eq(this.currentPostIndex);
+					proccessLink($html, true);
+					$html = $html.html();
+					$html = $html.replace(/(<!--.*-->)/g, '');
+				return $html;
 			}
 			return '';
 		}

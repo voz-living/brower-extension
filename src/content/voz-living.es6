@@ -24,7 +24,7 @@ export default class VozLiving extends BaseRuntime {
     }
 
     get isThreadPage(){
-        return this._isThreadListPage;
+        return this._isThreadPage;
     }
 
     _setupInitialInformation(){
