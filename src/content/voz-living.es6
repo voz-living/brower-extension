@@ -10,9 +10,25 @@ export default class VozLiving extends BaseRuntime {
             require("./style.less")
             this.emit("DOMReady", new Date());
             this._getAuthenticationInformation();
+            this._setupInitialInformation();
         });
 
         sendInfo("Client is connected");
+
+        this._isThreadListPage = /forumdisplay/.test(window.location.pathname);
+        this._isThreadPage = /showthread/.test(window.location.pathname);
+    }
+
+    get isThreadListPage(){
+        return this._isThreadListPage;
+    }
+
+    get isThreadPage(){
+        return this._isThreadListPage;
+    }
+
+    _setupInitialInformation(){
+        this._isThreadListPage = $("#threadslist").length > 0;
     }
 
     _getAuthenticationInformation(){
