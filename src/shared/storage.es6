@@ -71,3 +71,6 @@ export default class Storage{
         })
     }
 }
+
+var authStorage = new Storage("sync", {prefix: "auth_"});
+export { authStorage };

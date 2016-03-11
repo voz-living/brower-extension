@@ -1,6 +1,6 @@
 <div class="voz_living_top_bar_item" id="{{linkTarget}}">
     <div class="item_icon_wrapper">
-        <div class="item_badge">{{badgeNum}}</div>
+        <div class="item_badge" v-if="badgeNum > 0">{{badgeNum}}</div>
         <a href="#{{linkTarget}}">
             <i class="fa fa-{{faIcon}}"></i>
         </a>

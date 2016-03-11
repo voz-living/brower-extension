@@ -6,6 +6,7 @@ export default class ModuleQuoteNoti5 extends BaseModule{
         super();
 
         VozLiving.registerFunction("updateQuotes", this._updateQuotes.bind(this));
+        VozLiving.registerFunction("updateUnseenQuotesCount", this._updateUnseenQuotesCount.bind(this));
     }
 
     onDOMReady(){
@@ -13,6 +14,15 @@ export default class ModuleQuoteNoti5 extends BaseModule{
     }
 
     _updateQuotes(quotes){
-        VozLiving.moduleAlias.topBar.vm.$refs.quotenoti5list.updateQuotes(quotes);
+        var nav = VozLiving.moduleAlias.topBar;
+
+        var unSeenCount = quotes.filter((q) => q.hasSeen == false).length;
+        nav.vm.$refs.quote_noti5.badgeNum = unSeenCount;
+        nav.vm.$refs.quotenoti5list.updateQuotes(quotes);
+    }
+
+    _updateUnseenQuotesCount(count){
+        var nav = VozLiving.moduleAlias.topBar;
+        nav.vm.$refs.quote_noti5.badgeNum = count;
     }
 }
