@@ -25,8 +25,8 @@ export default class ModuleTopBar extends BaseModule{
             },
             attached: () => {
 
-                $(".voz_living_top_bar").on("click", ".voz_living_top_bar_item", function(){
-                    var $this = $(this);
+                $(".voz_living_top_bar").on("click", ".voz_living_top_bar_item .item_icon_wrapper", function(){
+                    var $this = $(this).parent();
                     var id = $this.attr("id");
                     if($this.hasClass("selected")){
                         $this.removeClass("selected")

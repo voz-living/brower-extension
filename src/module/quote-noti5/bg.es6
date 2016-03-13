@@ -168,7 +168,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
                         title: ptitle,
                         id: pid,
                         content: pexcerpt,
-                        datetime: datetime
+                        datetime: datetime.getTime()
                     },
                     hasRead: false,
                     hasSeen: false

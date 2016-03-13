@@ -2,21 +2,28 @@
     <ul v-if="quotes.length > 0">
         <li v-for="q in quotes">
             <div class='noti5-quote-item data-item'>
-                <strong>
-                    <a href="showthread.php?t={{q.thread.id}}">
-                        <i class='icon-th-list icon-white'></i>
-                        <span>{{q.thread.title}}</span>
-                    </a>
-                </strong>
-                :
-                <span style='font-style:italic;text-decoration:underline'>
+                <div class="quote-item-thread" title="{{q.thread.title}}">
+                    <strong>
+                        <a href="showthread.php?t={{q.thread.id}}">
+                            <span>{{q.thread.title}}</span>
+                        </a>
+                    </strong>
+                </div>
+                <div class="quote-item-post">
                     <a href="showthread.php?p={{q.post.id}}#post{{q.post.id}}">
                         {{q.post.content}}
                     </a>
-                </span>
-                <span class='label label-primary' style=''>
-                    ({{q.author.username}})
-                </span>
+                </div>
+                <div class="quote-item-bottom">
+                    By
+                    <a class="quote-item-author">
+                        ({{q.author.username}})
+                    </a>
+                    on {{q.post.datetime | datetime}}
+                    <div class="quote-item-action">
+                        <a href="showthread.php?p={{q.post.id}}#post{{q.post.id}}" target="_blank" title="Open in new tab"><i class="fa fa-share"></i></a>
+                    </div>
+                </div>
             </div>
         </li>
     </ul>
