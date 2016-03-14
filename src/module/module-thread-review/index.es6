@@ -25,13 +25,20 @@ export default class ModuleThreadReview extends BaseModule{
                         <div class='btn-view-last-post' voz-living-tooltip='Last Post'>
                             <i class="fa fa-fast-forward"></i>
                         </div>
+                        <div class='btn-view-first-post' voz-living-tooltip='First Post'>
+                            <i class="fa fa-fast-backward"></i>
+                        </div>
                         <div class='btn-open-new-tab' voz-living-tooltip='Open in new tab'>
                             <i class="fa fa-share"></i>
                         </div>
                     </td>`).insertAfter(thread.$element);
                 var mount = thread.$element.find(`.mount-${thread.id}`);
                 var threadPreview = new ThreadPreview({
-                    data: { id: thread.id, pageNum: thread.pageNum, controlTd: tdButton },
+                    data: { 
+                        id: thread.id, 
+                        pageNum: thread.pageNum, 
+                        controlTd: tdButton 
+                    },
                     events: {
                         closeOtherPreview: function(){
                             _.each(self.vm, (cvm) => {
@@ -40,9 +47,10 @@ export default class ModuleThreadReview extends BaseModule{
                         }
                     }
                 });
-                $('div.btn-preview', tdButton).on('click', threadPreview.viewFirstPost);
+                $('div.btn-preview', tdButton).on('click', threadPreview.openAndViewFirst);
                 $('div.btn-open-new-tab', tdButton).on('click', threadPreview.openNewTab);
                 $('div.btn-view-last-post', tdButton).on('click', threadPreview.viewLastPost);
+                $('div.btn-view-first-post', tdButton).on('click', threadPreview.viewFirstPost);
                 threadPreview.$mount(mount[0]);
                 this.vm.push(threadPreview);
             });

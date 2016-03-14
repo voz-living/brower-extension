@@ -23,8 +23,12 @@ var ThreadPreview = Vue.extend({
     },
     template: require("./thread-preview.html"),
     methods: {
-    	viewFirstPost: function(){
+    	openAndViewFirst: function(){
     		if(this.show) return this.close();
+    		this.viewFirstPost();
+			this.$emit('closeOtherPreview');
+    	},
+    	viewFirstPost: function(){
     		if(this.currentPageIndex != 0 
     			|| this.currentHtmlViewPosts == null){
     			this.currentPageIndex = 0;
@@ -34,7 +38,6 @@ var ThreadPreview = Vue.extend({
     			this.currentPostIndex = 0;
     			this.open();
     		}
-			this.$emit('closeOtherPreview');
     	},
     	viewLastPost: function(){
     		if(this.currentPageIndex != this.pageNum - 1){
