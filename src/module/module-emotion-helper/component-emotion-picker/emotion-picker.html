@@ -1,5 +1,3 @@
 <div class="voz_living_emo_picker">
-	<div class="list-emotions" v-for="emotion in emotions">
-		<img alt="{{emotion.text}}" src="{{prepareEmotionUrl(emotion.src)}}"/>
-	</div>
+	<img v-for="emotion in emotions" alt="{{emotion.text}}" src="{{prepareEmotionUrl(emotion.src)}}" @click="choseEmotion(emotion)"/>
 </div>
