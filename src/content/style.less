@@ -1,1 +1,17 @@
 @import "./style/tooltip.less";
+#nologin-message {
+    padding: 5px;
+    background: #738FBF;
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+    box-shadow: 0px 0px 5px #333;
+    width: ~"calc( 100% - 10px )";
+    z-index: 99;
+    transition: all 0.3s;
+    &:hover{
+        text-shadow: 0px 0px 2px white;
+        background: #9400AB;
+        box-shadow: 0px 0px 100px #F00;
+    }
+}
