@@ -78,4 +78,5 @@ export default class Storage{
 }
 
 var authStorage = new Storage("sync", {prefix: "auth_"});
-export { authStorage };
+var settingStorage = new Storage("sync", {prefix: "setting_"});
+export { authStorage, settingStorage };
