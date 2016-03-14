@@ -28,7 +28,7 @@ export default class ModuleEmotionHelper extends BaseModule{
 
         this.smileCont.append(this.smileBox);
         this.smilebox = this.smileCont.find(".smilebox");
-        this.emotionPicker = new EmotionPicker({ editor: this.editor });
+        this.emotionPicker = new EmotionPicker({ data: { editor: this.editor }});
         this.emotionPicker.$mount(this.smileBox[0]);
     }
 
