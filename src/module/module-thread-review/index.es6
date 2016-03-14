@@ -34,7 +34,11 @@ export default class ModuleThreadReview extends BaseModule{
                     </td>`).insertAfter(thread.$element);
                 var mount = thread.$element.find(`.mount-${thread.id}`);
                 var threadPreview = new ThreadPreview({
-                    data: { id: thread.id, pageNum: thread.pageNum, controlTd: tdButton },
+                    data: { 
+                        id: thread.id, 
+                        pageNum: thread.pageNum, 
+                        controlTd: tdButton 
+                    },
                     events: {
                         closeOtherPreview: function(){
                             _.each(self.vm, (cvm) => {
