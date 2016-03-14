@@ -1,5 +1,6 @@
 import BaseModule from "core/base-module"
 import EmotionPicker from "./component-emotion-picker"
+var VozLiving = require("content/runtime");
 
 export default class ModuleEmotionHelper extends BaseModule{
     constructor(){
@@ -26,6 +27,7 @@ export default class ModuleEmotionHelper extends BaseModule{
         }
 
         this.smileCont.append(this.smileBox);
+        this.smilebox = this.smileCont.find(".smilebox");
         this.emotionPicker = new EmotionPicker({ editor: this.editor });
         this.emotionPicker.$mount(this.smileBox[0]);
     }
@@ -33,12 +35,8 @@ export default class ModuleEmotionHelper extends BaseModule{
     onDOMReady(){
         super.onDOMReady();
 
-        if(window.__VOZLIVING && 
-            window.__VOZLIVING.isThreadPage){
-
-            setTimeout(() => {
-                this.init();
-            }, 5000);
+        if(VozLiving.isThreadPage){
+            this.init();
         }
     }
 }
