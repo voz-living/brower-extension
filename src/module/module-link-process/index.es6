@@ -8,7 +8,7 @@ export default class ModuleLinkProcess extends BaseModule{
     onDOMReady(){
         super.onDOMReady();
 
-        if(window.__VOZLIVING && 
+        if(window.__VOZLIVING &&
             window.__VOZLIVING.isThreadPage){
             proccessLink($('body'));
         }
@@ -31,12 +31,12 @@ export function replaceLinks($html){
         });
 
         _.each(nodes, (node) => {
-        	if (node.nodeType === 3) 
+        	if (node.nodeType === 3)
         		replaceTextWithLink(node);
         });
 
        	_.each(subnodes, (snode) => {
-        	if (snode.parentNode.nodeName.toLowerCase() !== "a") 
+        	if (snode.parentNode.nodeName.toLowerCase() !== "a")
         		replaceTextWithLink(snode);
         });
     });
@@ -61,21 +61,21 @@ export function removeRedirect($html){
 
 export function resolveImage($html, isThreadContentOnly){
 	var $context;
-	
+
 	if(isThreadContentOnly){
 		$context = $html.find("a");
 	}else{
 		$context = $html.find("[id^='post_message_'] a");
 	}
-	
+
     $context.each(function() {
         var $this = $(this);
         var href = $this.attr("href");
-        if (/\.(jpg|png|gif|bmp)$/.test(href)) {
+        if (/\.(jpg|png|gif|bmp|jpeg)$/.test(href)) {
             $this.attr("data-smartlink", "image");
             var $img = $(`<div>
-            	<img src='${href}' 
-            		title='Có thể xảy ra sai sót trong việc tự động nhận biết hình, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'/>
+            	<img src='${href}'
+            		title='Tự động nhận diện link hình với voz living'/>
         		</div>`);
             return $this.after($img);
         }
@@ -84,7 +84,7 @@ export function resolveImage($html, isThreadContentOnly){
 
 export function resolveYoutube($html, isThreadContentOnly){
 	var $context;
-	
+
 	if(isThreadContentOnly){
 		$context = $html.find("a");
 	}else{
@@ -101,8 +101,8 @@ export function resolveYoutube($html, isThreadContentOnly){
         }
         if (ytb !== null && ytb.length > 0) {
             $this.attr("data-smartlink", "youtube");
-            $img = $(`<div><iframe width='560' height='315' src='https://www.youtube.com/embed/${ytb[1]}?rel=0' 
-            					frameborder='0' allowfullscreen 
+            $img = $(`<div><iframe width='560' height='315' src='https://www.youtube.com/embed/${ytb[1]}?rel=0'
+            					frameborder='0' allowfullscreen
             					title='Có thể xảy ra sai sót trong việc tự động nhận biết youtube, nếu có xin vui lòng báo lỗi qua pm greans(@vozforum)'>
         					</iframe>
 					</div>`);
