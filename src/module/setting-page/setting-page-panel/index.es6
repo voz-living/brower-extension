@@ -14,12 +14,17 @@ var ComponentSettingPagePanel = Vue.extend({
     },
     methods: {
         initUpdate: async function(){
-            var def = getDefaultData(defaultSetting);
-            var storageSetting = await settingStorage.get(def);
-            _.forEach(storageSetting, (val, key) => {
-                this[key] = val;
-            })
-            return Promise.resolve(true);
+            try{
+                var def = getDefaultData(defaultSetting);
+                var storageSetting = await settingStorage.get(def);
+                _.forEach(storageSetting, (val, key) => {
+                    this[key] = val;
+                })
+                return Promise.resolve(true);
+            }catch(e){
+                console.log(e);
+                return Promise.reject();
+            }
         },
         startWatching: function(){
             _.forEach(defaultSetting, (val, key) => {

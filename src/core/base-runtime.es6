@@ -30,6 +30,7 @@ export default class BaseRuntime extends BaseEvent {
                     this.communicationHandler[type](request.message, sendResponse, sender);
                 }
             }
+            return true;
         });
 
         this.registerCommunicationHandler("info", this._communicationInfoHandler.bind(this));
@@ -57,7 +58,7 @@ export default class BaseRuntime extends BaseEvent {
         sendResponse({ack: true, error: false});
     }
 
-    async _communicationFunctionHandler(message, sendResponse){
+    _communicationFunctionHandler(message, sendResponse){
         var func = message.function;
         var params = message.params;
         if(_.isUndefined(params)) params = {};
@@ -68,19 +69,19 @@ export default class BaseRuntime extends BaseEvent {
                 message: `Function ${func} is not registered`
             })
         }else{
-            try{
-                var response = await this.functions[func](params);
+            this.functions[func](params).then((response) => {
+                console.log("Sending response of func ", func, response)
                 sendResponse({
                     error: false,
                     response: response
                 });
-            }catch(e){
+            }).catch((e) => {
+                console.error(e);
                 sendResponse({
                     error: true,
                     message: `Error while executing function ${func}`
                 });
-                console.error(e);
-            }
+            })
         }
     }
 

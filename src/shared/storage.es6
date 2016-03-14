@@ -1,19 +1,52 @@
+import {sendFunctionCall} from "shared/communication";
+
+class BackgroundStorage {
+
+    set(param, cb){
+        var args = arguments;
+        sendFunctionCall({
+            function: "backgroundStorageSet",
+            params: param
+        }, function(rt){
+            cb(rt.response);
+        })
+    }
+    get(param, cb){
+        var args = arguments;
+        sendFunctionCall({
+            function: "backgroundStorageGet",
+            params: param
+        }, function(rt){
+            cb(rt.response);
+        })
+    }
+}
+
 export default class Storage{
     constructor(type="local",{prefix=""}={}){
         this.prefix = prefix;
         if(type=="local"){
-            this.storage = chrome.storage.local;
+            this.storage = this._getLocalStorage();
         }else if(type="sync"){
-            if(_.isUndefined(chrome.storage.sync)){
-                console.log("WARNING: DO NOT SUPPORT SYNC STORAGE, SWITCH TO LOCAL STORAGE")
-                this.storage = chrome.storage.local;
-            }else{
+            if(chrome.storage && chrome.storage.sync/* || window.VOZLIVING_BACKGROUND !== true*/){
                 this.storage = chrome.storage.sync;
+            }else{
+                console.log("WARNING: DO NOT SUPPORT SYNC STORAGE, SWITCH TO LOCAL STORAGE")
+                this.storage = this._getLocalStorage();
             }
         }else {
             throw new Error(`Doest not support storage type ${type}`)
         }
 
+    }
+
+    _getLocalStorage(){
+        if( chrome.storage && chrome.storage.local/* && window.VOZLIVING_BACKGROUND === true*/){
+            return chrome.storage.local;
+        }else{
+            console.log("BackgroundStorage");
+            return new BackgroundStorage();
+        }
     }
 
     set(obj, val=null){
