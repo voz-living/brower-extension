@@ -59,7 +59,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
 
     async _emitUnseenQuotesCount(){
         this._pushUnseenCount();
-        return Pronise.resolve(true)
+        return Promise.resolve(true)
     }
 
     async _pushUnseenCount(){
