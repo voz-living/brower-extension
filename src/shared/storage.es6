@@ -42,6 +42,7 @@ export default class Storage{
             if(_.isString(first)){
                 obj = {};
                 obj[prefix + first] = second
+                singleQuery = true;
             }else{
                 throw new Error("storage.get: when you get item from storage with default value in the second parameter, first parameter must be a (String) key");
             }
