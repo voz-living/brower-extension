@@ -9,7 +9,7 @@ export default class VozLiving extends BaseRuntime {
             require("font-awesome/css/font-awesome.min.css");
             require("./style.less")
             this.emit("DOMReady", new Date());
-            this._getAuthenticationInformation();
+            this._authenticationChecking();
             this._setupInitialInformation();
         });
 
@@ -29,6 +29,15 @@ export default class VozLiving extends BaseRuntime {
 
     _setupInitialInformation(){
         this._isThreadListPage = $("#threadslist").length > 0;
+    }
+
+    _authenticationChecking(){
+        var {isLogin} = this._getAuthenticationInformation();
+        if(!isLogin){
+            if ($("#nologin-message").length == 0) {
+                $(".tborder:has(input[name='vb_login_username'])").before("<div id='nologin-message'>Bạn cần phải đăng nhập để sử dụng đầy đủ các chức năng của plugin</div>")
+            }
+        }
     }
 
     _getAuthenticationInformation(){
