@@ -4,7 +4,12 @@ export default class Storage{
         if(type=="local"){
             this.storage = chrome.storage.local;
         }else if(type="sync"){
-            this.storage = chrome.storage.sync;
+            if(_.isUndefined(chrome.storage.sync)){
+                console.log("WARNING: DO NOT SUPPORT SYNC STORAGE, SWITCH TO LOCAL STORAGE")
+                this.storage = chrome.storage.local;
+            }else{
+                this.storage = chrome.storage.sync;
+            }
         }else {
             throw new Error(`Doest not support storage type ${type}`)
         }

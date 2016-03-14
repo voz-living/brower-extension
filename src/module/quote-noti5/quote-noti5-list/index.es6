@@ -30,6 +30,7 @@ var ComponentQuoteNoti5List = Vue.extend({
         },
 
         sendSeenQuotes: function(quotes){
+            quotes = JSON.parse(JSON.stringify(quotes)); // unwrap 
             sendFunctionCall({function: "updateSeenQuotes", params: quotes});
         }
     }

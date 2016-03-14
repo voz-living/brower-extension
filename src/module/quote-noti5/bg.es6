@@ -37,7 +37,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
         if (quotes == null) quotes = [];
         quotes = quotes;
 
-        return quotes;
+        return Promise.resolve(quotes);
     }
 
     async _updateSeenQuotes(quotes) {
@@ -54,12 +54,12 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
 
         this._saveQuotes(stQuotes);
         this._pushUnseenCount();
-        return stQuotes.length;
+        return Promise.resolve(stQuotes.length);
     }
 
     async _emitUnseenQuotesCount(){
         this._pushUnseenCount();
-        return Pronise.resolve(true)
+        return Promise.resolve(true)
     }
 
     async _pushUnseenCount(){
@@ -69,6 +69,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
             function: "updateUnseenQuotesCount",
             params: count
         });
+        return Promise.resolve(true);
     }
 
     async _emitQuoteListToClient(){
@@ -113,6 +114,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
                 params: data
             });
         }
+        return Promise.resolve(true);
     }
 
     _process(html){
@@ -168,7 +170,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
                         title: ptitle,
                         id: pid,
                         content: pexcerpt,
-                        datetime: datetime
+                        datetime: datetime.getTime()
                     },
                     hasRead: false,
                     hasSeen: false
@@ -224,5 +226,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
             console.log(`Either username or securitytoken is empty`, username, securitytoken)
             this._rerun();
         }
+
+        return Promise.resolve(true);
     }
 }

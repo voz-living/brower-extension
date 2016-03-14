@@ -1,10 +1,50 @@
 .voz_living_quote_noti5_list{
-    background: #BCC3E3;
+    background: #415a84;
     box-sizing: border-box;
+    z-index: 5;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.69);
+    padding: 0 !important;
     > ul {
         list-style: none;
         padding: 0;
         margin: 0;
+        > li {
+            clear: both;
+            color: white;
+            padding: 10px;
+            border-top: 1px solid #23497c;
+            box-shadow: inset 0 2px 0 -1px rgba(255,255,255,0.2);
+            background: rgba(65,90,132,1);
+            transition: all 0.3s;
+
+            &:hover{
+                background: rgb(51, 78, 125);
+            }
+
+            a{
+                color: white;
+            }
+
+
+            .quote-item-thread{
+                width: 100%;
+                height: 30px;
+                line-height: 30px;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .quote-item-post{
+                font-style:italic;
+                width: 100%;
+            }
+            .quote-item-author{
+                font-weight: bold;
+            }
+            .quote-item-action{
+                float: right;
+            }
+        }
     }
 }
