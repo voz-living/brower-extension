@@ -24,6 +24,7 @@ export default class BackgroundRuntime extends BaseRuntime {
         // isLogin
         this.authStorage.set(obj);
         console.log("Authentication updated", obj);
+        return Promise.resolve(true);
     }
 
     _backgroundStorageSet(params){

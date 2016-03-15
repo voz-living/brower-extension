@@ -1,5 +1,5 @@
 import BaseBackground from "core/base-background"
-import Storage, {authStorage} from "shared/storage"
+import Storage, {authStorage, settingStorage} from "shared/storage"
 import {sendInfo, sendFunctionCall} from "shared/communication"
 
 export default class BGModuleQuoteNoti5 extends BaseBackground{
@@ -119,7 +119,7 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
 
     _process(html){
         var $html, $threads_link, data;
-
+        html = html.replace(/[\w_/]+\.gif/g, "javascript:void(0)");
         $html = $(html);
         data = [];
 
@@ -182,11 +182,16 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
         return data;
     }
 
-    _rerun(){
-        this.timeoutId = setTimeout(this._run.bind(this), this.timeout);
+    async _rerun(){
+        var quoteNoti5Interval = await settingStorage.get("quoteNoti5Interval", 30);
+        this.timeoutId = setTimeout(this._run.bind(this), quoteNoti5Interval*1000);
+        return Promise.resolve(true);
     }
 
     async _run(){
+        var isActive = await settingStorage.get("quoteNoti5Active", true);
+        if(!isActive) return this._rerun();
+
         var {username, securitytoken} = await authStorage.get({
             username: null,
             securitytoken: null
@@ -215,16 +220,16 @@ export default class BGModuleQuoteNoti5 extends BaseBackground{
                 success: (html) => {
                     var data = this._process(html);
                     this._checksave(data);
-                    this._rerun();
+                    return this._rerun();
                 },
                 error: () => {
                     console.log("request quotes failed");
-                    this._rerun();
+                    return this._rerun();
                 }
             })
         } else {
             console.log(`Either username or securitytoken is empty`, username, securitytoken)
-            this._rerun();
+            return this._rerun();
         }
 
         return Promise.resolve(true);

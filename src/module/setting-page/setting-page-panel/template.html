@@ -1,11 +1,22 @@
 <div class="setting_page_panel">
-    <h3>Tuỳ chỉnh</h3>
+    <h3>Configuration</h3>
     <div class="setting-item">
         <input type="checkbox" v-model="wideScreen" id="wideScreen"/>
-        <label class='setting-label' for="wideScreen"> Mở rộng toàn màn hình</label>
+        <label class='setting-label' for="wideScreen"> Expand Screen to 100% wide</label>
     </div>
+
     <div class="setting-item">
         <input type="checkbox" v-model="threadPreview" id="threadPreview"/>
-        <label class='setting-label' for="threadPreview"> Xem trước thớt</label>
+        <label class='setting-label' for="threadPreview"> Prevew Thread</label>
+    </div>
+    <br/>
+    <h4>Quote Notification</h4>
+    <div class="setting-item">
+        <input type="checkbox" v-model="quoteNoti5Active" id="quoteNoti5Active"/>
+        <label class='setting-label' for="quoteNoti5Active">Active</label>
+    </div>
+    <div class="setting-item">
+        <label class='setting-label' for="quoteNoti5Interval">Interval</label>
+        <input type="number" max="120" min="10" v-model="quoteNoti5Interval" id="quoteNoti5Interval"/>
     </div>
 </div>
