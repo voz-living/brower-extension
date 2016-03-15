@@ -7,7 +7,9 @@ export default class BackgroundRuntime extends BaseRuntime {
         this.authStorage = new Storage("sync", {prefix: "auth_"});
 
         this.registerFunction("setAuthenticationInfo", this._setAuthenticationInfo.bind(this));
-        
+        this.registerFunction("backgroundStorageSet", this._backgroundStorageSet.bind(this));
+        this.registerFunction("backgroundStorageGet", this._backgroundStorageGet.bind(this));
+
     }
 
     start(){
@@ -22,5 +24,21 @@ export default class BackgroundRuntime extends BaseRuntime {
         // isLogin
         this.authStorage.set(obj);
         console.log("Authentication updated", obj);
+    }
+
+    _backgroundStorageSet(params){
+        return new Promise(function(resolve){
+            chrome.storage.local.set.call(chrome.storage.local, params, function(){
+                resolve(true)
+            });
+        });
+    }
+
+    _backgroundStorageGet(params){
+        return new Promise(function(resolve){
+            chrome.storage.local.get.call(chrome.storage.local, params, function(rt){
+                resolve(rt)
+            });
+        });
     }
 }

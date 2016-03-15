@@ -8,7 +8,10 @@ export function sendMessageToClient(message, callback){
 }
 
 export function sendMessageToBackground(message, callback){
-    chrome.runtime.sendMessage(message, callback);
+    chrome.runtime.sendMessage(message, function(response){
+        console.log("Response from background", response)
+        if(callback) callback.call(null, response );
+    });
 }
 
 function getCommunicator(){
@@ -24,7 +27,7 @@ export function sendInfo(message, callback){
     getCommunicator()({
         type: "info",
         message: message
-    });
+    }, callback);
 }
 
 export function sendFunctionCall(message, callback){
