@@ -38,14 +38,15 @@ var html =`<div id="voz_living_splash_wrapper">
       border-bottom-color: transparent;
       border-radius: 50%;
       box-sizing: border-box;
-      animation: rotate 1s ease-in-out infinite;
-      transform: rotate(-200deg)
+      will-change: transform;
+      animation: rotate 0.5s ease-in-out infinite;
+      transform: rotate(-200deg) translateZ(0);
     }
     @keyframes rotate {
       0% { border-width: 10px; }
       25% { border-width: 3px; }
       50% {
-        transform: rotate(115deg);
+        transform: rotate(115deg) translateZ(0);
         border-width: 10px;
       }
       75% { border-width: 3px;}
@@ -73,7 +74,10 @@ export default class ModuleMisc extends BaseModule{
 
         removeAds();
         wideScreen(settingStorage);
-
-        $("#voz_living_splash").fadeOut(300);
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                $("#voz_living_splash").hide();
+            }, 100)
+        })
     }
 }
