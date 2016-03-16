@@ -1,4 +1,5 @@
 import BaseModule from "core/base-module"
+import VozLiving from "content/runtime"
 
 export default class ModuleLinkProcess extends BaseModule{
     constructor(){
@@ -8,8 +9,7 @@ export default class ModuleLinkProcess extends BaseModule{
     onDOMReady(){
         super.onDOMReady();
 
-        if(window.__VOZLIVING &&
-            window.__VOZLIVING.isThreadPage){
+        if(VozLiving.isThreadPage){
             proccessLink($('body'));
         }
     }

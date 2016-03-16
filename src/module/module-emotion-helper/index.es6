@@ -1,11 +1,10 @@
 import BaseModule from "core/base-module"
 import EmotionPicker from "./component-emotion-picker"
-var VozLiving = require("content/runtime");
+import VozLiving from "content/runtime"
 
 export default class ModuleEmotionHelper extends BaseModule{
     constructor(){
         super();
-        this.isQuickMode = true;
         this.editor = null;
         this.smileCont = null;
         this.smileBox = null;
@@ -17,8 +16,8 @@ export default class ModuleEmotionHelper extends BaseModule{
         this.smileBox = $("<div class='smilebox'></div>");
 
         if(this.editor.length > 0){
-            this.isQuickMode = false;
             this.smileCont = $("#vB_Editor_001_smiliebox");
+            this.smileCont.find("table").remove();
         }else{
             this.editor = $("#vB_Editor_QR_textarea");
             if(this.editor.length == 0) return;
@@ -35,7 +34,7 @@ export default class ModuleEmotionHelper extends BaseModule{
     onDOMReady(){
         super.onDOMReady();
 
-        if(VozLiving.isThreadPage){
+        if(VozLiving.isThreadPage || VozLiving.isNewReply){
             this.init();
         }
     }
