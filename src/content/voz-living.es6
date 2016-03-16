@@ -17,6 +17,7 @@ export default class VozLiving extends BaseRuntime {
 
         this._isThreadListPage = /forumdisplay/.test(window.location.pathname);
         this._isThreadPage = /showthread/.test(window.location.pathname);
+        this._isNewReply = /newreply/.test(window.location.pathname);
     }
 
     get isThreadListPage(){
@@ -25,6 +26,10 @@ export default class VozLiving extends BaseRuntime {
 
     get isThreadPage(){
         return this._isThreadPage;
+    }
+
+    get isNewReply(){
+        return this._isNewReply;
     }
 
     _setupInitialInformation(){
