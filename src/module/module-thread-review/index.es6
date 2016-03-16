@@ -1,5 +1,6 @@
 import BaseModule from "core/base-module"
 import ThreadPreview from "./component-thread-preview"
+import {settingStorage} from "shared/storage"
 
 export default class ModuleThreadReview extends BaseModule{
     constructor(){
@@ -34,10 +35,10 @@ export default class ModuleThreadReview extends BaseModule{
                     </td>`).insertAfter(thread.$element);
                 var mount = thread.$element.find(`.mount-${thread.id}`);
                 var threadPreview = new ThreadPreview({
-                    data: { 
-                        id: thread.id, 
-                        pageNum: thread.pageNum, 
-                        controlTd: tdButton 
+                    data: {
+                        id: thread.id,
+                        pageNum: thread.pageNum,
+                        controlTd: tdButton
                     },
                     events: {
                         closeOtherPreview: function(){
@@ -78,7 +79,12 @@ export default class ModuleThreadReview extends BaseModule{
 
     onDOMReady(){
         super.onDOMReady();
-        this.getThreads();
-        this.mountPreviews();
+
+        settingStorage.get("threadPreview").then((isActive) => {
+            if(isActive) {
+                this.getThreads();
+                this.mountPreviews();
+            }
+        })
     }
 }

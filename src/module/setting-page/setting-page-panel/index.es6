@@ -27,9 +27,11 @@ var ComponentSettingPagePanel = Vue.extend({
             }
         },
         startWatching: function(){
-            _.forEach(defaultSetting, (val, key) => {
+            _.forEach(defaultSetting, (opt, key) => {
                 this.$watch(key, (newVal) => {
-                    this.updateSetting(key, newVal);
+                    var val = newVal;
+                    if(opt.validateOnInput) val = opt.validateOnInput(val);
+                    this.updateSetting(key, val);
                 })
             })
         },
