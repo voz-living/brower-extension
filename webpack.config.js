@@ -76,7 +76,8 @@ module.exports = {
             "window.jQuery": "jquery",
 			_: "lodash",
 			lodash: "lodash",
-            Vue: "vue"
+            Vue: "vue",
+            Cookie: "tiny-cookie"
         })
         // new webpack.optimize.UglifyJsPlugin({
         // 	compress: {

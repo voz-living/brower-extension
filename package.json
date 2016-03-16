@@ -48,6 +48,7 @@
     "lodash": "^4.6.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.0",
+    "tiny-cookie": "^0.5.5",
     "url-loader": "^0.5.7",
     "vue": "^1.0.17",
     "webpack": "^1.12.14"
