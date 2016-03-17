@@ -22,6 +22,7 @@ var EmotionPicker = Vue.extend({
             var textAfter = v.substring(selEnd, v.length);
             this.editor.val(textBefore + smilieText + textAfter);
             this.editor[0].setSelectionRange(selStart + smilieText.length, selStart + smilieText.length);
+            this.editor.focus();
 		}
 	},
 	template: require("./emotion-picker.html"),
