@@ -9,10 +9,18 @@ var AddQuote = Vue.extend({
     },
     methods: {
         getQuotes: async function(){
-            this.editor.val("Đang xử lý...");
+            this.editor.attr('disabled', 'disabled');
             var response = await http.get(this.href);
-            var text = $(response).find("#vB_Editor_001_textarea").val();
-            this.editor.val(text);
+            this.editor.removeAttr('disabled');
+            var text = _.trim($(response).find("#vB_Editor_001_textarea").val());
+            var selStart = this.editor.prop('selectionStart');
+            var selEnd = this.editor.prop('selectionEnd');
+            var v = this.editor.val();
+            var textBefore = v.substring(0, selStart);
+            var textAfter = v.substring(selEnd, v.length);
+            this.editor.val(textBefore + text + textAfter);
+            this.editor[0].setSelectionRange(selStart + text.length, selStart + text.length);
+            this.editor.focus();
         },
         clearQuotes: function(){
             Cookie.set('vbulletin_multiquote', '');
