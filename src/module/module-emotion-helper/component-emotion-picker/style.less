@@ -5,6 +5,7 @@
 	padding: 5px 0;
     min-width: 155px;
     min-height: 250px;
+    margin-top: 5px;
 
 	div.emo{
 		width: 40px;
@@ -13,6 +14,7 @@
 		padding: 2px;
 		position: relative;
 		border-radius: 2px;
+		transition: all 0.5s;
 		
 		img{
 			max-height: 100%;
@@ -27,6 +29,10 @@
 
 		&:hover{
 			background: #fff;
+			
+			img{
+				transform: scale(1.1);
+			}
 		}
 	}
 }
