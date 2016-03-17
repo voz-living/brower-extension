@@ -12,10 +12,10 @@ Browser extensions for voz living
 - [x] +   Embed Youtube Link
 - [x] +   Embed Image Link
 - [x] Options Page
+- [x] Quick post quotation
+- [x] Add full emoticon into editor (both advanced and quick reply)
 - [ ] Monitor(Notify) followed threads
 - [ ] Facebook Sharing (Post)
-- [ ] Add full emoticon into editor (both advanced and quick reply)
-- [ ] Quick post quotation
 - [ ] Hình đâu - quick review images in thread
 - [ ] Smart quote minification
 - [ ] Auto load next page
