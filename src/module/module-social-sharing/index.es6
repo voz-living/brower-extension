@@ -1,5 +1,6 @@
 import BaseModule from "core/base-module"
 import VozLiving from "content/runtime"
+import {settingStorage} from "shared/storage"
 
 export default class ModuleSocialSharing extends BaseModule{
     constructor(){
@@ -26,6 +27,10 @@ export default class ModuleSocialSharing extends BaseModule{
     onDOMReady(){
         super.onDOMReady();
 
-        if(VozLiving.isThreadPage) this.init();
+        settingStorage.get("socialSharing").then((isActive) => {
+            if(isActive) {
+                if(VozLiving.isThreadPage) this.init();
+            }
+        });
     }
 }
