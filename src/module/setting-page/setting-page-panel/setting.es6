@@ -22,5 +22,8 @@ module.exports = {
     },
     threadPreview: {
         def: true
+    },
+    socialSharing: {
+        def: false
     }
 }
