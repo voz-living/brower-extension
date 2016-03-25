@@ -1,0 +1,61 @@
+.voz_living_quote_minification{
+	position: relative;
+
+	&.voz_living_close{
+		max-height: 125px;
+		overflow: hidden;
+
+		&:after{
+			display: block;
+		}
+	}
+
+	&:hover{
+		.vozl_quote_control .vozl_button{
+			opacity: 1;
+		}
+	}
+
+	&:after {
+		content: '';
+		display: none;
+		position: absolute;
+		z-index: 3;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 125px;
+		border-radius: 0 0 8px 8px;
+		background-image: -webkit-linear-gradient(top,rgba(255,255,255,0) 0,#E1E4F2 100%);
+		background-image: -moz-linear-gradient(top,rgba(255,255,255,0) 0,#E1E4F2 100%);
+		background-image: -o-linear-gradient(top,rgba(255,255,255,0) 0,#E1E4F2 100%);
+		background-image: linear-gradient(top,rgba(255,255,255,0) 0,#E1E4F2 100%);
+	}
+
+	.vozl_quote_control{
+		overflow: hidden;
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		width: 100%;
+		z-index: 4;
+		text-align: center;
+
+		.vozl_button{
+			padding: 5px 10px;
+			font-size: 10px;
+			margin: 7px;
+			display: inline-block;
+			opacity: 0;
+			border-radius: 99px;
+			border: none;
+			outline: 0;
+			color: #fff;
+			cursor: pointer;
+			background: linear-gradient(rgba(85,84,89,.8),rgba(85,84,89,.8)),linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3));
+			-webkit-transition: -webkit-transform .1s cubic-bezier(.2,.3,.25,.9),opacity .1s cubic-bezier(.2,.3,.25,.9);
+			-moz-transition: -moz-transform .1s cubic-bezier(.2,.3,.25,.9),opacity .1s cubic-bezier(.2,.3,.25,.9);
+			transition: transform .1s cubic-bezier(.2,.3,.25,.9),opacity .1s cubic-bezier(.2,.3,.25,.9);
+		}
+	}
+}

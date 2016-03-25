@@ -6,6 +6,8 @@ import ModuleTopBar from "module/module-top-bar"
 import ModuleLinkProcess from "module/module-link-process"
 import ModuleEmotionHelper from "module/module-emotion-helper"
 import ModuleQuoteHelper from "module/module-quote-helper"
+import ModuleSocialSharing from "module/module-social-sharing"
+import ModuleQuoteMinification from "module/module-quote-minification"
 
 VozLiving.loadModules(
 	ModuleMisc,
@@ -14,5 +16,7 @@ VozLiving.loadModules(
 	ModuleQuoteNoti5,
 	ModuleLinkProcess,
 	ModuleEmotionHelper,
-	ModuleQuoteHelper
+	ModuleQuoteHelper,
+	ModuleSocialSharing,
+	ModuleQuoteMinification
 );
