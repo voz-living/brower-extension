@@ -14,10 +14,10 @@ Browser extensions for voz living
 - [x] Options Page
 - [x] Quick post quotation
 - [x] Add full emoticon into editor (both advanced and quick reply)
+- [x] Smart quote minification
+- [x] Facebook Sharing (Post)
 - [ ] Monitor(Notify) followed threads
-- [ ] Facebook Sharing (Post)
 - [ ] Hình đâu - quick review images in thread
-- [ ] Smart quote minification
 - [ ] Auto load next page
 
 - Mics:
