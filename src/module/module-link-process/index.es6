@@ -16,14 +16,21 @@ export default class ModuleLinkProcess extends BaseModule{
 }
 
 export function proccessLink($html, isThreadContentOnly=false){
-	replaceLinks($html);
+	replaceLinks($html, isThreadContentOnly);
 	removeRedirect($html);
 	resolveImage($html, isThreadContentOnly);
 	resolveYoutube($html, isThreadContentOnly);
 }
 
-export function replaceLinks($html){
-	$html.find("[id^='post_message_']").each(function() {
+export function replaceLinks($html, isThreadContentOnly){
+    if(!isThreadContentOnly){
+        $html = $html.find("[id^='post_message_']");
+    }else{
+        var isReplace = $html.find('a[data-type="linkdetected"]');
+        if(isReplace && isReplace.length > 0) return;
+    }
+
+	$html.each(function() {
         var $this = $(this);
         var nodes = $this.contents();
         var subnodes = $this.find("*:not(a)").contents().filter(function() {
@@ -64,6 +71,8 @@ export function resolveImage($html, isThreadContentOnly){
 
 	if(isThreadContentOnly){
 		$context = $html.find("a");
+        var isReplace = $html.find('a[data-smartlink="image"]');
+        if(isReplace && isReplace.length > 0) return;
 	}else{
 		$context = $html.find("[id^='post_message_'] a");
 	}
@@ -87,6 +96,8 @@ export function resolveYoutube($html, isThreadContentOnly){
 
 	if(isThreadContentOnly){
 		$context = $html.find("a");
+        var isReplace = $html.find('a[data-smartlink="youtube"]');
+        if(isReplace && isReplace.length > 0) return;
 	}else{
 		$context = $html.find("[id^='post_message_'] a");
 	}
